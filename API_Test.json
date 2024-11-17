@@ -1,0 +1,3337 @@
+{
+	"info": {
+		"_postman_id": "e34bc38e-c638-4574-8232-7d4d5ea92e93",
+		"name": "E_Fawatercom_Final_Projuct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22526466"
+	},
+	"item": [
+		{
+			"name": "Register_API",
+			"item": [
+				{
+					"name": "Valid Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Ruba\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"rubaalbrezat@gmail.com\",\r\n    \"address\": \"Madaba\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"rob_ii--\",\r\n    \"password\": \"123@Rob\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sql Injection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Ruba ' OR '1'='1\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"rubaalbrezat' OR '1'='1@gmail.com\",\r\n    \"address\": \"Madaba'; DROP TABLE users; --\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"rob_ii--' OR 'x'='x\",\r\n    \"password\": \"' OR '1'='1\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"email required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Ruba\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \" \",\r\n    \"address\": \"Madaba\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"robii\",\r\n    \"password\": \"123@Rob\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full Name with Maximum Allowed Characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Lorem ipsum dolor sit ametf consectetur adipiscing elitf Nam ullamcorper mattis velitf vitae lectusf\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \" reem8albrezat@gmail.com\",\r\n    \"address\": \"Madaba\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"reem\",\r\n    \"password\": \"123@Rob\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full Name with Exceeding Maximum Allowed Characters Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Lorem ipsume dolor sit ametf consectetur adipiscing elitf Nam ullamcorper mattis velitf vitae lectusf\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"wasanalbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"wasan\",\r\n    \"password\": \"123@Wasee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email invalid format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"fullname\": \"janaaa\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"janaalbrezatgmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"janawii\",\r\n    \"password\": \"123@janna\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email with Maximum Allowed Characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"fullname\": \"loloo\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"Loremipsumdoljnnnnscmdlrmvdkrjnontgbhregbtrbgitrbgtbrjbgrbigjkrbnrsknoirtbjkrsntoritbgljnlkbnflrinborbntbljnrknbkjtbrotlnkbjbtothkbbtbhtbvhjbvhjbhbhbkbjgjkgkjbjgbkjbjkbjkbjkjsnktnbkbjthbhvfnbrhvbfdvbfbhbvhbfhbfbvfbfbuborebjbubkjbiuegburjbkkbvi@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"lolowii\",\r\n    \"password\": \"123@lolo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email with Exceeding Maximum Allowed Characters Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"email required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"fullname\": \"loloo\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"LoremipsumdoljnnnHnscmdlrmvdkrjnontgbhregbtrbgitrbgtbrjbgrbigjkrbnrsknoirtbjkrsntoritbgljnlkbnflrinborbntbljnrknbkjtbrotlnkbjbtothkbbtbhtbvhjbvhjbhbhbkbjgjkgkjbjgbkjbjkbjkbjkjsnktnbkbjthbhvfnbrhvbfdvbfbhbvhbfhbfbvfbfbuborebjbubkjbiuegburjbkkbvi@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"lolowii\",\r\n    \"password\": \"123@lolo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email contain space",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"email required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"fullname\": \"janaaa\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"jana albrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"janawii\",\r\n    \"password\": \"123@janna\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Name with minimum characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\":\"rama brezat\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"jana albrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"rama\",\r\n    \"password\": \"12356@janna\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Name with maximum characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"fullname\":\"rama brezat\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"jana albrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"ramaaaaaaaaaaaaaaaaa\",\r\n    \"password\": \"12356@rama\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Use Name with exceeding length characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\":\"manal  brezat\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"manalalbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"manalllllllllllllllll\",\r\n    \"password\": \"12356@manal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Name with disallowed special characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"fullname\":\"manar brezat\",\r\n    \"phonenumber\": \"0770398024\",\r\n    \"email\": \"manaralbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"manar@$\",\r\n    \"password\": \"12356@manar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"janaaa\",\r\n    \"phonenumber\": \"0770398026\",\r\n    \"email\": \"jana1albrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"janawii\",\r\n    \"password\": \"12356@jann\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password with Minimum Length",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Sultan\",\r\n    \"phonenumber\": \"0770398026\",\r\n    \"email\": \"sultanalbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultan_\",\r\n    \"password\": \"123@As\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password with Maximum Length",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Naro\",\r\n    \"phonenumber\": \"0770378026\",\r\n    \"email\": \"narolbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultan_\",\r\n    \"password\": \"123@AssssaA#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Below Minimum Length",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Naro2\",\r\n    \"phonenumber\": \"0770378026\",\r\n    \"email\": \"naro2lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultan_\",\r\n    \"password\": \"123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Exceeding Maximum Length",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"fullname\": \"Naro1\",\r\n    \"phonenumber\": \"0770378026\",\r\n    \"email\": \"naro1lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultan_\",\r\n    \"password\": \"123@Ass#ssaA#\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Missing Uppercase Letter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Naro3\",\r\n    \"phonenumber\": \"0770378026\",\r\n    \"email\": \"naro3lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultan1_\",\r\n    \"password\": \"123@ass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Missing Lowercase Letter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n   \"fullname\": \"Naro4\",\r\n    \"phonenumber\": \"0770378026\",\r\n    \"email\": \"naro4lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"sultahn_\",\r\n    \"password\": \"123@ASS\"\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Missing Digit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n     \"fullname\": \"Naro5\",\r\n    \"phonenumber\": \"0770388026\",\r\n    \"email\": \"naro5lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"naro66\",\r\n    \"password\": \"fhjj@ASS\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Missing Special Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Naro5\",\r\n    \"phonenumber\": \"0770388026\",\r\n    \"email\": \"naro5lbrezat@gmail.com\",\r\n    \"address\": \"Amman\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"naro66\",\r\n    \"password\": \"fhjjASS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non-Valid Jordanian City in Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Naro6\",\r\n    \"phonenumber\": \"0770388026\",\r\n    \"email\": \"naro6lbrezat@gmail.com\",\r\n    \"address\": \"Paris\",\r\n    \"pictuer\": \"img.png\",\r\n    \"username\": \"naro88\",\r\n    \"password\": \"fhjj#4ASS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response size is in Limit\",function(){\r",
+									"    const MaxSize = 1024;\r",
+									"    const ResponseSize = pm.response.responseSize;\r",
+									"\r",
+									"    pm.expect(ResponseSize).to.be.below(MaxSize);\r",
+									"\r",
+									"    console.log('Response Size: ${ResponseSize} byte');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"fullname\": \"Robiii\",\r\n \"phonenumber\":    \"0770398024\",\r\n \"email\": \"rubaa1lbrezat@gmail.com\",\r\n \"address\": \"Madaba\",\r\n \"pictuer\": \"img.png\",\r\n \"username\": \"rob_iiii\",\r\n \"password\": \"123@Rb2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"fullname\": \"Robi\",\r\n \"phonenumber\":    \"0770398024\",\r\n \"email\": \"rubaa1lbrezat@gmail.com\",\r\n \"address\": \"Madaba\",\r\n \"pictuer\": \"img.png\",\r\n \"username\": \"rob_ii\",\r\n \"password\": \"123@Rb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/Register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"Register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tistemonial_API",
+			"item": [
+				{
+					"name": "Response size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response size is in Limit\",function(){\r",
+									"    const MaxSize = 10000;\r",
+									"    const ResponseSize = pm.response.responseSize;\r",
+									"\r",
+									"    pm.expect(ResponseSize).to.be.below(MaxSize);\r",
+									"\r",
+									"    console.log('Response Size: ${ResponseSize} byte');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/testimonial/GetAllTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"testimonial",
+								"GetAllTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/testimonial/GetAllTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"testimonial",
+								"GetAllTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Testimonial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/testimonial/GetAllTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"testimonial",
+								"GetAllTestimonialAdmin"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "JSON Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is in JSON format\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/testimonial/GetAllTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"testimonial",
+								"GetAllTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized access",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/testimonial/GetAllTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"testimonial",
+								"GetAllTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Statistics about profits_API",
+			"item": [
+				{
+					"name": "Response size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response size is in Limit\",function(){\r",
+									"    const MaxSize = 10000;\r",
+									"    const ResponseSize = pm.response.responseSize;\r",
+									"\r",
+									"    pm.expect(ResponseSize).to.be.below(MaxSize);\r",
+									"\r",
+									"    console.log('Response Size: ${ResponseSize} byte');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Paymenthistory/AggregatProfets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Paymenthistory",
+								"AggregatProfets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Statics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Paymenthistory/AggregatProfets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Paymenthistory",
+								"AggregatProfets"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Paymenthistory/AggregatProfets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Paymenthistory",
+								"AggregatProfets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized access",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Paymenthistory/AggregatProfets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Paymenthistory",
+								"AggregatProfets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JSON Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is in JSON format\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Paymenthistory/AggregatProfets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Paymenthistory",
+								"AggregatProfets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoice_API",
+			"item": [
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 2 ,\r\n    \"Invoicenumber\": 58955855\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response size is in Limit\",function(){\r",
+									"    const MaxSize = 10000;\r",
+									"    const ResponseSize = pm.response.responseSize;\r",
+									"\r",
+									"    pm.expect(ResponseSize).to.be.below(MaxSize);\r",
+									"\r",
+									"    console.log('Response Size: ${ResponseSize} byte');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 2 ,\r\n    \"Invoicenumber\": 58955855\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All user Invoices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 2 ,\r\n    \"Invoicenumber\": 58955855\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "SQL Injection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Billerid\": \"2 OR 1=1\",\r\n    \"Invoicenumber\": \"58955855; DROP TABLE testimonials; --\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "InValid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 3,\r\n    \"Invoicenumber\": 58955855\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "InValid invoice number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 3,\r\n    \"Invoicenumber\": 58955555\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing biller id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n    \"Invoicenumber\": 58955555\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing invoice number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n  \"Billerid\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "JSON Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is in JSON format\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 2 ,\r\n    \"Invoicenumber\": 58955855\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access (No Token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Billerid\": 2 ,\r\n    \"Invoicenumber\": 58955855\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Invoice/DetailsInvoise",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Invoice",
+								"DetailsInvoise"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update_Testemonial_API",
+			"item": [
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 2,\r\n    \"Testimonialid\": 81\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized access",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 2,\r\n    \"Testimonialid\": 27\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Testimonial Status to \"2\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 2,\r\n    \"Testimonialid\": 27\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SQL injection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": \"2 OR 1=1\",\r\n    \"Testimonialid\": 27\r\n}\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Testimonial Status to \"1\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 1,\r\n    \"Testimonialid\": 27\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Testimonial Status to \"3\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 3,\r\n    \"Testimonialid\": 27\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Testimonial id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 1,\r\n    \"Testimonialid\": 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Testimonial id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": 3\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Data Type for Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"States\": \"cfkhg\",\r\n    \"Testimonialid\": 27\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Testimonial/UpdateTestimonialAdmin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Testimonial",
+								"UpdateTestimonialAdmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete_Bill_Category_API",
+			"item": [
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Billercategory/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Billercategory/6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InValid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Billercategory/9",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Billercategory/7",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get_Bills_API",
+			"item": [
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Userid\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/SerchPh/GetPhByUId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"SerchPh",
+								"GetPhByUId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JSON Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is in JSON format\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Userid\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/SerchPh/GetPhByUId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"SerchPh",
+								"GetPhByUId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Userid\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/SerchPh/GetPhByUId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"SerchPh",
+								"GetPhByUId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User With No bill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Userid\": 1039\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/SerchPh/GetPhByUId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"SerchPh",
+								"GetPhByUId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access (No Token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Userid\": 42\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/SerchPh/GetPhByUId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"SerchPh",
+								"GetPhByUId"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create_Bill Category_API",
+			"item": [
+				{
+					"name": "Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"billercategoryname\": \"Water12\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (1).jpg\",\r\n        \"location\": \"amman\",\r\n        \"email\": \"water@gmail.com\",\r\n        \"deducted\": 5\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Usertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"billercategoryname\": \"Water123\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (1).jpg\",\r\n        \"location\": \"amman\",\r\n        \"email\": \"water123@gmail.com\",\r\n        \"deducted\": 5\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"billercategoryname\": \"elect\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (2).jpg\",\r\n        \"location\": \"madaba\",\r\n        \"email\": \"elect1@gmail.com\",\r\n        \"deducted\": 5\r\n    }\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SQL Injection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \r\n        \"billercategoryname\": \"Water12 OR 1=1\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (1).jpg\",\r\n        \"location\": \"amman\",\r\n        \"email\": \"water@gmail.com\",\r\n        \"deducted\": 5\r\n\r\n    }\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"billercategoryname\": \"elect1\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (2).jpg\",\r\n        \"email\": \"elect12@gmail.com\",\r\n        \"deducted\": 6\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email invalid format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n    \"billercategoryname\": \"elect1234\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"email\": \"elect1234gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email Exceeding Maximum Character Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for exceeding limit character 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"email required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n    \"billercategoryname\": \"elect1234\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"irbid\",\r\n        \"email\": \"Loremipsumdoljnnnnscmdlrmvdkrjnontgbhregbtrbgitrbgtbrjbgrbijgjkrbnrsknoirtbjkrsntoritbgljnlkbnflrinborbntbljnrknbkjtbrotlnkbjbtothkbgbtbhtbvhjbvhjbhbhbkbjgjkgkjbjgbkjbjkbjkbjkjsnktnbkbjthbhvfnbrhvbfdvbfbhbvhbfhbfbvfbfbuborebjbubkjbiuegburjbkkbvi@gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email maximum allowed characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n\r\n    \"billercategoryname\": \"elect16234\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"irbid\",\r\n        \"email\": \"Loremipsumdoljnnunnscmdlrmvdkrjnontgbhregbtrbgitrbgtbrjbgrbijgjkrbnrsknoirtbjkrsntoritbgljnlkbnflrinborbntbljnrknbkjtbrotlnkbjbtothkbgbtbhtbvhjbvhjbhbhbkbjgjkgkjbjgbkjbjkbjkbjkjsnktnbkbjthbhvfnbrhvbfdvbfbhbvhbfhbfbvfbfbuborebjbubkjbiuegburjbkkbvi@gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Biller Category Name maximum allowed characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n    \"billercategoryname\": \"Loremipsumdoljnnnnscmdlrmvdkrjnontgbhregbtrbgitrbgtbrjbgrbijgjkrbnrsknoirtbjkrfwvdvfdgefdresdetbrrtb\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"zarqa\",\r\n        \"email\": \"Lorem@gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Biller Category Name Exceeding Maximum Character Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for missing 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n    \"billercategoryname\": \"Loremipsumdoljnnnnscmdlrhmvdkrjnontgbhregbtrbgitrbgtbrjbgrbijgjkrbnrsknoirtbjkrfwvdvfdgefdresdetbrrtb\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"zarqa\",\r\n        \"email\": \"Lorem@gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate Biller Category Name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"billercategoryname\": \"Water\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"zarqa\",\r\n        \"email\": \"Lorem@gmail.com\",\r\n        \"deducted\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existing jordanian city",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Admintoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"billercategoryname\": \"Water\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"new york\",\r\n        \"email\": \"Lorem@gmail.com\",\r\n        \"deducted\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Location Exceeding Maximum Character Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error message for exceeding limit character 'email' field\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"      pm.expect(responseData).to.have.property(\"message\").that.includes(\"email required\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n\r\n   \r\n    \"billercategoryname\": \"elect1234\",\r\n        \"pictuer\": \"5fd366be-acdb-40cb-941f-316941009120_download (5).jpg\",\r\n        \"location\":\"irbidddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\",\r\n        \"email\": \"Loremipsum@gmail.com\",\r\n        \"deducted\": 8\r\n\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Billercategory",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Billercategory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response size is in Limit\",function(){",
+							"    const MaxSize = 1024;",
+							"    const ResponseSize = pm.response.responseSize;",
+							"",
+							"    pm.expect(ResponseSize).to.be.below(MaxSize);",
+							"",
+							"    console.log('Response Size: ${ResponseSize} byte');",
+							"});",
+							"",
+							"",
+							"var token  = pm.response.text()",
+							"",
+							"pm.environment.set(\"Admintoken\", token);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "algorithm",
+							"value": "HS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "payload",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t  \"username\": \"Admin\", \n      \"password\": \"123456\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Login/Loginuser",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Login",
+						"Loginuser"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Use Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token  = pm.response.text()\r",
+							"\r",
+							"pm.environment.set(\"Usertoken\", token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Usertoken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t  \"username\": \"alhan\", \r\n      \"password\": \"123456\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/Login/Loginuser",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Login",
+						"Loginuser"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
